@@ -1,13 +1,26 @@
 package org.example.Repositories.Interfaces;
 
+import org.example.Repositories.Exceptions.DAOException;
+
 import java.util.List;
 
+
 public interface ICRUD<T> {
-    public void add(T t);
-    public void update(T t);
-    public void delete(String id);
-    public void get(String id);
-    public List<T> getAll();
-}  
+
+    // Add an entity
+    void add(T entity) throws DAOException;
+
+    // Retrieve all entities
+    List<T> getAll() throws DAOException;
+
+    // Retrieve an entity by its ID
+    T getById(int id) throws DAOException;
+
+    // Update an entity
+    void update(T entity) throws DAOException;
+
+    // Delete an entity by its ID
+    void delete(int id) throws DAOException;
+}
 
 

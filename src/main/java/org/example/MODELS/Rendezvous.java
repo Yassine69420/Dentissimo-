@@ -1,14 +1,30 @@
 package org.example.MODELS;
 
+import java.sql.Time;
 import java.util.Date;
 
-class Rendezvous {
+public class Rendezvous {
     
     private int id_rdv;
     private Date date;
     private java.sql.Time heure;
-    private Patient idPatient;
-    private Medecin idMedecin;
+    private int Patient_id;
+    private int Medecin_id;
+
+    public Rendezvous(Date date, java.sql.Time heure, int Patient_id, int Medecin_id) {
+        this.date = date;
+        this.heure = heure;
+        this.Patient_id = Patient_id;
+        this.Medecin_id = Medecin_id;
+    }
+
+    public Rendezvous(int id_rdv, Date date, Time heure, int Patient_id, int Medecin_id) {
+        this.id_rdv = id_rdv;
+        this.date = date;
+        this.heure = heure;
+        this.Patient_id = Patient_id;
+        this.Medecin_id = Medecin_id;
+    }
 
     // Getters and Setters
     public int getId_rdv() {
@@ -35,20 +51,20 @@ class Rendezvous {
         this.heure = heure;
     }
 
-    public Patient getIdPatient() {
-        return idPatient;
+    public int getPatient_id() {
+        return Patient_id;
     }
 
-    public void setIdPatient(Patient idPatient) {
-        this.idPatient = idPatient;
+    public void setPatient_id(int idPatient) {
+        this.Patient_id = idPatient;
     }
 
-    public Medecin getIdMedecin() {
-        return idMedecin;
+    public int getMedecin_id() {
+        return Medecin_id;
     }
 
-    public void setIdMedecin(Medecin idMedecin) {
-        this.idMedecin = idMedecin;
+    public void setMedecin_id(int idMedecin) {
+        this.Medecin_id = idMedecin;
     }
 
 }

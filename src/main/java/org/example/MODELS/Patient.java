@@ -1,6 +1,8 @@
 package org.example.MODELS;
 
 
+import org.example.Repositories.Exceptions.DAOException;
+
 import java.util.Date;
 
 public class Patient extends User {
@@ -9,13 +11,22 @@ public class Patient extends User {
     private int age;
     private Date date_ajout;
 
+
+
     public Patient(String CIN, String nom, String prenom, Date date_naissance, String adresse, String telephone,
-            String email, String sexe,
-     int patient_id, int age) {
+                   String email, String sexe , int age ) throws DAOException {
+        super(CIN, nom, prenom, date_naissance, adresse, telephone, email, sexe);
+
+        this.age = age;
+        this.date_ajout = new Date(); // Assigning the current date
+    }
+
+    public Patient(String CIN, String nom, String prenom, Date date_naissance, String adresse, String telephone, String email, String sexe, int patient_id, int age, float facture_total, Date date_ajout) {
         super(CIN, nom, prenom, date_naissance, adresse, telephone, email, sexe);
         this.patient_id = patient_id;
         this.age = age;
-        this.date_ajout = new Date(); // Assigning the current date
+        this.facture_total = facture_total;
+        this.date_ajout = date_ajout;
     }
 
     // Getters and Setters

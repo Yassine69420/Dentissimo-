@@ -1,7 +1,7 @@
 package org.example.MODELS;
 
 import org.example.Repositories.Exceptions.DAOException;
-import org.example.Repositories.Implementation.PatientDAOimp;
+import org.example.Repositories.Implementation.PatientDAO;
 
 import java.util.Date;
 
@@ -23,8 +23,8 @@ public class Secretaire extends User {
     }
 
     public void addPatient(Patient patient) throws DAOException {
-      PatientDAOimp patientDAO = new PatientDAOimp();
-      patientDAO.addPatient(patient);
+      PatientDAO patientDAO = new PatientDAO();
+      patientDAO.add(patient);
     
     }
 
