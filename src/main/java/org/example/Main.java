@@ -1,64 +1,69 @@
 package org.example;
 
-import org.example.MODELS.Patient;
-import org.example.Repositories.Implementation.PatientDAO;
+import org.example.MODELS.Rendezvous;
+import org.example.Repositories.Exceptions.DAOException;
+import org.example.Repositories.Implementation.RendezVousDAO;
 
+import java.sql.Time;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
 
 public class Main {
+    public static void main(String[] args) throws DAOException {
+        RendezVousDAO dao = new RendezVousDAO();
 
-    public static void main(String[] args) {
         try {
-            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            // Create Rendezvous objects
+            SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+            Date date = sdf.parse("10-01-2025");
+            Time time = Time.valueOf("09:30:00");
 
+            Rendezvous rendezvous1 = new Rendezvous(date, time, 1, 101);
+            Rendezvous rendezvous2 = new Rendezvous(sdf.parse("12-01-2025"), Time.valueOf("11:00:00"), 2, 102);
 
-            PatientDAO patientcontroller = new PatientDAO();
+            // 1. Test ADD method
+//            dao.add(rendezvous1);
+//            dao.add(rendezvous2);
 
-            Patient patient1 = new Patient(
-                    "CIN12345", "test", "Hassan", dateFormat.parse("1990-05-15"),
-                    "123 Rue Principal", "0612345678", "ali.hassan@example.com", "Male",
-                    34
-            );
+            System.out.println("Rendezvous added successfully!");
+//
+//             2. Test GET ALL method
+//            List<Rendezvous> rendezvousList = dao.getAll();
+//            System.out.println("All Rendezvous:");
+//            for (Rendezvous rdv : rendezvousList) {
+//                System.out.println(rdv.getId_rdv() + " | " + rdv.getDate() + " | " + rdv.getHeure() + " | " +
+//                        rdv.getPatient_id() + " | " + rdv.getMedecin_id());
+//            }
+////
+            // 3. Test GET BY ID method
+//            Rendezvous fetchedRdv = dao.getById(5);
+//            System.out.println("Rendezvous with ID 5: " + fetchedRdv.getDate() + ", " + fetchedRdv.getHeure());
 
-            Patient patient2 = new Patient(
-                    "CIN54321", "Fatima", "Zahra", dateFormat.parse("1995-08-20"),
-                    "456 Rue Atlas", "0678543210", "fatima.zahra@example.com", "Female",
-                    29
-            );
+//            // 4. Test UPDATE method
+//            Rendezvous Updatetest = dao.getById(5);
+//            Updatetest.setHeure(Time.valueOf("22:00:00")); // Change time
+//            dao.update(Updatetest);
+//            System.out.println("Rendezvous updated!");
 
-            Patient patient3 = new Patient(
-                    "CIN67890", "Mohamed", "Said", dateFormat.parse("1987-03-10"),
-                    "789 Rue Souk", "0611112222", "mohamed.said@example.com", "Male",
-                     37
-            );
+//            // Verify update
+//            Rendezvous updatedRdv = dao.getById(1);
+//            System.out.println("Updated Rendezvous Time: " + updatedRdv.getHeure());
 
+//            // 5. Test DELETE method
+//            dao.delete(1);
+//            System.out.println("Rendezvous with ID 1 deleted!");
 
-            Patient patient4 = new Patient(
-                    "CIN98765", "Amina", "Bouchra", dateFormat.parse("1993-11-25"),
-                    "1010 Rue Sidi", "0622334455", "amina.bouchra@example.com", "Female",
-                     31
-            );
+//            // Verify deletion
+//            List<Rendezvous> remainingRendezvous = dao.getAll();
+//            System.out.println("Remaining Rendezvous:");
+//            for (Rendezvous rdv : remainingRendezvous) {
+//                System.out.println(rdv.getId_rdv());
+//            }
 
-            Patient patient5 = new Patient(
-                    "CIN24680", "testaaaaaaaaaaaa", "El Mekki", dateFormat.parse("2000-01-01"),
-                    "2020 Rue Tafilalet", "0600001111", "yassine.mekki@example.com", "Male",
-                    24
-            );
-
-//            patientcontroller.add(patient1);
-//            patientcontroller.add(patient2);
-//            patientcontroller.add(patient3);
-//            patientcontroller.add(patient4);
-//            patientcontroller.add(patient5);
-
-//            patientcontroller.update(new Patient("C12039","Mahmood","benana",dateFormat.parse("2000-01-01"),"sale al jadida","0677889910","hamdaoui@gmail.ma","shemale",1,28,28000,dateFormat.parse("2000-01-01"))
-//            );
-//            patientcontroller.getAll();
-//            patientcontroller.delete(1);
-//            patientcontroller.getById(1);
-
-        } catch (Exception e) {
-            System.out.println("Error: " + e.getMessage());
+        } catch (ParseException e) {
+            throw new DAOException("fuck you");
         }
     }
 }
