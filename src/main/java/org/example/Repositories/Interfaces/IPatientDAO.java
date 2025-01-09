@@ -1,7 +1,7 @@
 package org.example.Repositories.Interfaces;
 
 import org.example.MODELS.Patient;
-import org.example.Repositories.Exceptions.DAOException;
+import org.example.Exceptions.DAOException;
 
 import java.util.List;
 

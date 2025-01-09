@@ -1,70 +1,88 @@
 package org.example.MODELS;
 
-import java.sql.Time;
+
+import jdk.vm.ci.meta.Local;
+
+import java.time.LocalDate;
 import java.util.Date;
 
 public class Rendezvous {
     
     private int id_rdv;
-    private Date date;
-    private java.sql.Time heure;
-    private int Patient_id;
-    private int Medecin_id;
+    private LocalDate date;
 
-    public Rendezvous(Date date, java.sql.Time heure, int Patient_id, int Medecin_id) {
+    private int id_patient;
+    private int id_medecin;
+
+    private Patient patient;
+    private Medecin medecin;
+
+    public Rendezvous(LocalDate date, Patient patient, Medecin medecin) {
         this.date = date;
-        this.heure = heure;
-        this.Patient_id = Patient_id;
-        this.Medecin_id = Medecin_id;
+        this.patient = patient;
+        this.medecin = medecin;
     }
-
-    public Rendezvous(int id_rdv, Date date, Time heure, int Patient_id, int Medecin_id) {
+    public Rendezvous(int id_rdv, LocalDate date, int id_patient, int id_medecin) {
         this.id_rdv = id_rdv;
         this.date = date;
-        this.heure = heure;
-        this.Patient_id = Patient_id;
-        this.Medecin_id = Medecin_id;
+        this.id_patient = id_patient;
+        this.id_medecin = id_medecin;
     }
-
+    public Rendezvous(LocalDate date, int id_patient, int id_medecin) {
+        this.date = date;
+        this.id_patient = id_patient;
+        this.id_medecin = id_medecin;
+    }
+    public Rendezvous(int id_rdv, LocalDate date, Patient patient, Medecin medecin) {
+        this.id_rdv = id_rdv;
+        this.date = date;
+        this.patient = patient;
+        this.medecin = medecin;
+    }
     // Getters and Setters
     public int getId_rdv() {
         return id_rdv;
     }
-
     public void setId_rdv(int id_rdv) {
         this.id_rdv = id_rdv;
     }
-
-    public Date getDate() {
+    public LocalDate getDate() {
         return date;
     }
-
-    public void setDate(Date date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
-
-    public java.sql.Time getHeure() {
-        return heure;
+    public Patient getPatient() {
+        return patient;
+    }
+    public void setPatient(Patient patient) {
+        this.patient = patient;
+    }
+    public Medecin getMedecin() {
+        return medecin;
+    }
+    public void setMedecin(Medecin medecin) {
+        this.medecin = medecin;
+    }
+    public int getId_patient() {
+        return id_patient;
+    }
+    public void setId_patient(int id_patient) {
+        this.id_patient = id_patient;
+    }
+    public int getId_medecin() {
+        return id_medecin;
+    }
+    public void setId_medecin(int id_medecin) {
+        this.id_medecin = id_medecin;
     }
 
-    public void setHeure(java.sql.Time heure) {
-        this.heure = heure;
+    @Override
+    public String toString() {
+        return "Rendezvous{" +
+                "date=" + date +
+                ", id_patient=" + id_patient +
+                ", id_medecin=" + id_medecin +
+                '}';
     }
-
-    public int getPatient_id() {
-        return Patient_id;
-    }
-
-    public void setPatient_id(int idPatient) {
-        this.Patient_id = idPatient;
-    }
-
-    public int getMedecin_id() {
-        return Medecin_id;
-    }
-
-    public void setMedecin_id(int idMedecin) {
-        this.Medecin_id = idMedecin;
-    }
-
 }

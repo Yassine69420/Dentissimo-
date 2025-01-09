@@ -1,19 +1,25 @@
 package org.example.MODELS;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 public abstract class User {
     protected String CIN;
     protected String nom;
     protected String prenom;
-    protected Date date_naissance;
+    protected LocalDate date_naissance;
     protected String adresse;
     protected String telephone;
     protected String email;
     protected String sexe;
 
-    public User(String CIN, String nom, String prenom, Date date_naissance, String adresse, String telephone,
-            String email, String sexe) {
+    public User(String CIN,
+                String nom,
+                String prenom,
+                LocalDate date_naissance,
+                String adresse,
+                String telephone,
+                String email,
+                String sexe) {
         this.CIN = CIN;
         this.nom = nom;
         this.prenom = prenom;
@@ -23,8 +29,6 @@ public abstract class User {
         this.email = email;
         this.sexe = sexe;
     }
-
-
 
     public String getCIN() {
         return CIN;
@@ -50,11 +54,11 @@ public abstract class User {
         this.prenom = prenom;
     }
 
-    public Date getDate_naissance() {
+    public LocalDate getDate_naissance() {
         return date_naissance;
     }
 
-    public void setDate_naissance(Date date_naissance) {
+    public void setDate_naissance(LocalDate date_naissance) {
         this.date_naissance = date_naissance;
     }
 

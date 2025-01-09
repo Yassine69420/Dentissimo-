@@ -1,69 +1,111 @@
 package org.example;
 
+import org.example.MODELS.Medecin;
+import org.example.MODELS.Patient;
 import org.example.MODELS.Rendezvous;
-import org.example.Repositories.Exceptions.DAOException;
+import org.example.Exceptions.DAOException;
+import org.example.Repositories.Implementation.MedecinDAO;
+import org.example.Repositories.Implementation.PatientDAO;
 import org.example.Repositories.Implementation.RendezVousDAO;
+import org.example.Services.Implementation.PatientService;
 
-import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
 public class Main {
-    public static void main(String[] args) throws DAOException {
-        RendezVousDAO dao = new RendezVousDAO();
+    public static void main(String[] args) {
+        PatientService Pservice = new PatientService(new PatientDAO());
+        //dd-MM-yyyy HH:mm
+//        SimpleDateFormat sdfH = new SimpleDateFormat("dd-MM-yyyy HH:mm");
+//        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
 
-        try {
-            // Create Rendezvous objects
-            SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
-            Date date = sdf.parse("10-01-2025");
-            Time time = Time.valueOf("09:30:00");
 
-            Rendezvous rendezvous1 = new Rendezvous(date, time, 1, 101);
-            Rendezvous rendezvous2 = new Rendezvous(sdf.parse("12-01-2025"), Time.valueOf("11:00:00"), 2, 102);
+        // Create Medecin objects
+//            Medecin medecin1 = medecinDAO.getById(1);
+//            Medecin medecin2 = medecinDAO.getById(2);
+//            Medecin medecin3 = medecinDAO.getById(3);
+//            System.out.println(medecin1.toString());
+//            System.out.println(medecin2.toString());
+//            System.out.println(medecin3.toString());
 
-            // 1. Test ADD method
-//            dao.add(rendezvous1);
-//            dao.add(rendezvous2);
+//            // Create Patient objects
+//            Patient patient1 = new Patient(
+//                    "CIN001",
+//                    "John",
+//                    "Doe",
+//                   LocalDate.of(1990, 5, 15),  // Example date of birth
+//                    "123 Street City",
+//                    "123456789",
+//                    "john.doe@example.com",
+//                    "Male",
+//                    35,
+//                    250.75f,
+//                    LocalDate.now()  // Date of addition
+//            );
 
-            System.out.println("Rendezvous added successfully!");
-//
-//             2. Test GET ALL method
-//            List<Rendezvous> rendezvousList = dao.getAll();
-//            System.out.println("All Rendezvous:");
-//            for (Rendezvous rdv : rendezvousList) {
-//                System.out.println(rdv.getId_rdv() + " | " + rdv.getDate() + " | " + rdv.getHeure() + " | " +
-//                        rdv.getPatient_id() + " | " + rdv.getMedecin_id());
-//            }
-////
-            // 3. Test GET BY ID method
-//            Rendezvous fetchedRdv = dao.getById(5);
-//            System.out.println("Rendezvous with ID 5: " + fetchedRdv.getDate() + ", " + fetchedRdv.getHeure());
+//Pservice.add(patient1);
 
-//            // 4. Test UPDATE method
-//            Rendezvous Updatetest = dao.getById(5);
-//            Updatetest.setHeure(Time.valueOf("22:00:00")); // Change time
-//            dao.update(Updatetest);
-//            System.out.println("Rendezvous updated!");
 
-//            // Verify update
-//            Rendezvous updatedRdv = dao.getById(1);
-//            System.out.println("Updated Rendezvous Time: " + updatedRdv.getHeure());
-
-//            // 5. Test DELETE method
-//            dao.delete(1);
-//            System.out.println("Rendezvous with ID 1 deleted!");
-
-//            // Verify deletion
-//            List<Rendezvous> remainingRendezvous = dao.getAll();
-//            System.out.println("Remaining Rendezvous:");
-//            for (Rendezvous rdv : remainingRendezvous) {
-//                System.out.println(rdv.getId_rdv());
-//            }
-
-        } catch (ParseException e) {
-            throw new DAOException("fuck you");
-        }
+        MedecinDAO mado = new MedecinDAO();
+        System.out.println(mado.getByEmailandPass("yassine@gmail.com", "Password").toString());
     }
 }
+//            System.out.println(patientDAO.getById(1).getNom());
+//            patientDAO.delete(1);
+//            patientDAO.add(patient1);
+//            patientDAO.add(patient2);
+//            patientDAO.add(patient3);
+
+//            List<Patient> patients = patientDAO.getAll();
+//            for (Patient patient : patients) {
+//                System.out.println(patient.toString());
+//            }
+
+//            Patient patient1 = patientDAO.getById(1);
+//            Patient patient2 = patientDAO.getById(2);
+//            Patient patient3 = patientDAO.getById(3);
+//            System.out.println(patient1.toString());
+//            System.out.println(patient2.toString());
+//            System.out.println(patient3.toString());
+
+            // Create Rendezvous objectsM
+
+            // 1. Test ADD method
+//            System.out.println("Adding rendezvous...");
+//            dao.add(rendezvous1);
+//            dao.add(rendezvous2);
+//            dao.add(rendezvous3);
+//            System.out.println("Rendezvous added successfully!");
+
+//            // 2. Test GET ALL method
+//            System.out.println("\nFetching all rendezvous...");
+//            List<Rendezvous> rendezvousList = dao.getAll();
+//            for (Rendezvous rdv : rendezvousList) {
+//                System.out.println(rdv.getId_rdv() + " | " + sdf.format(rdv.getDate()) +
+//                        " | Patient: " + rdv.getPatient().getNom() +
+//                        " | Medecin: " + rdv.getMedecin().getNom());
+//            }
+
+//            // 3. Test GET BY ID method
+//            System.out.println("\nFetching rendezvous by ID...");
+//            Rendezvous fetchedRdv = dao.getById(1);
+//            System.out.println("Rendezvous with ID 1: " + sdf.format(fetchedRdv.getDate()) +
+//                    " | Patient: " + fetchedRdv.getPatient().getNom());
+//
+//            // 4. Test UPDATE method
+//            System.out.println("\nUpdating rendezvous...");
+//            fetchedRdv.setDate(sdf.parse("15-01-2025")); // Change date
+//            dao.update(fetchedRdv);
+//            System.out.println("Rendezvous updated!");
+//
+//            // 5. Test DELETE method
+//            System.out.println("\nDeleting rendezvous...");
+//            dao.delete(1);
+//            System.out.println("Rendezvous with ID 1 deleted!");
+//
+
+//
+

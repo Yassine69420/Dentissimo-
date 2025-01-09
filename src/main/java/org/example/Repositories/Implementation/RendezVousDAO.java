@@ -1,18 +1,18 @@
 package org.example.Repositories.Implementation;
 
 import org.example.MODELS.Rendezvous;
-import org.example.Repositories.Exceptions.DAOException;
+import org.example.Exceptions.DAOException;
 import org.example.Repositories.Interfaces.IRendezvousDAO;
 
 import java.io.*;
-import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
 public class RendezVousDAO implements IRendezvousDAO {
     public static String PATH = "src/main/resources/Rendezvous.csv";
-    private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd-MM-yyyy");
-
+   public static final DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
     @Override
     public void add(Rendezvous rendezvous) throws DAOException {
         // Generate new ID for the rendezvous
@@ -26,16 +26,6 @@ public class RendezVousDAO implements IRendezvousDAO {
             throw new DAOException("Failed to add rendezvous", e);
         }
     }
-
-    public static String formatData(Rendezvous rendezvous) {
-        // Format data to ensure consistency
-        return rendezvous.getId_rdv() +
-                "," + rendezvous.getPatient_id() +
-                "," + rendezvous.getMedecin_id() +
-                "," + DATE_FORMAT.format(rendezvous.getDate()) +
-                "," + rendezvous.getHeure();
-    }
-
     @Override
     public List<Rendezvous> getAll() throws DAOException {
         List<Rendezvous> rendezvousList = new ArrayList<>();
@@ -49,23 +39,6 @@ public class RendezVousDAO implements IRendezvousDAO {
         }
         return rendezvousList;
     }
-
-    private Rendezvous parseRendezvousData(String line) throws DAOException {
-        try {
-            String[] data = line.split(",");
-            // Parse date and time in the same format as they were saved
-            return new Rendezvous(
-                    Integer.parseInt(data[0]),          // ID
-                    DATE_FORMAT.parse(data[3]),         // Date
-                    java.sql.Time.valueOf(data[4]),     // Time
-                    Integer.parseInt(data[1]),          // Patient ID
-                    Integer.parseInt(data[2])           // Medecin ID
-            );
-        } catch (Exception e) {
-            throw new DAOException("Failed to parse rendezvous data: " + line, e);
-        }
-    }
-
     @Override
     public Rendezvous getById(int id_rdv) throws DAOException {
         try (BufferedReader reader = new BufferedReader(new FileReader(PATH))) {
@@ -81,7 +54,6 @@ public class RendezVousDAO implements IRendezvousDAO {
         }
         throw new DAOException("Rendezvous with ID " + id_rdv + " not found");
     }
-
     @Override
     public void update(Rendezvous rendezvous) throws DAOException {
         List<Rendezvous> rendezvousList = getAll();
@@ -105,7 +77,6 @@ public class RendezVousDAO implements IRendezvousDAO {
             throw new DAOException("Rendezvous with ID " + rendezvous.getId_rdv() + " not found");
         }
     }
-
     @Override
     public void delete(int id_rdv) throws DAOException {
         List<Rendezvous> rendezvousList = getAll();
@@ -128,27 +99,22 @@ public class RendezVousDAO implements IRendezvousDAO {
             throw new DAOException("Rendezvous with ID " + id_rdv + " not found");
         }
     }
-
+    //-------------------------------------Helper methods-------------------------------------------------
     public static int generateId() throws DAOException {
         int lastId = 0;
         try (BufferedReader reader = new BufferedReader(new FileReader(PATH))) {
             String line;
 
             while ((line = reader.readLine()) != null) {
-                // Skip empty lines
                 if (line.trim().isEmpty()) {
                     continue;
                 }
 
                 String[] data = line.split(",");
-
-                // Ensure the line has enough columns and the first column is not empty
                 if (data.length > 0 && !data[0].trim().isEmpty()) {
                     try {
-                        // Parse the first column as an integer
                         lastId = Integer.parseInt(data[0].trim());
                     } catch (NumberFormatException e) {
-                        // Skip lines with invalid ID data
                         continue;
                     }
                 }
@@ -159,6 +125,28 @@ public class RendezVousDAO implements IRendezvousDAO {
             throw new DAOException("Failed to generate Rendez-vous ID", e);
         }
         return lastId + 1;
+    }
+    private Rendezvous parseRendezvousData(String line) throws DAOException {
+        try {
+            String[] data = line.split("=");
+
+            return new Rendezvous(
+                    Integer.parseInt(data[0]),
+                    LocalDate.parse(data[1],dtf ),
+                    Integer.parseInt(data[2]),
+                    Integer.parseInt(data[3])
+            );
+
+        } catch (Exception e) {
+            throw new DAOException("Failed to parse rendezvous data: " + line, e);
+        }
+    }
+    public static String formatData(Rendezvous rendezvous) {
+        // Format data to ensure consistency
+        return rendezvous.getId_rdv() +
+                "=" + dtf.format(rendezvous.getDate()) +
+                "=" + rendezvous.getId_patient() +
+                "=" + rendezvous.getId_medecin();
     }
 
 }

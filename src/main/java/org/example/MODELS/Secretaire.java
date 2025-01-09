@@ -1,14 +1,16 @@
 package org.example.MODELS;
 
-import org.example.Repositories.Exceptions.DAOException;
+
+import org.example.Exceptions.DAOException;
 import org.example.Repositories.Implementation.PatientDAO;
 
-import java.util.Date;
+import java.time.LocalDate;
+
 
 public class Secretaire extends User {
     private int id_sec;
 
-    public Secretaire(String CIN, String nom, String prenom, Date date_naissance, String adresse, String telephone, String email, String sexe, int id_sec) {
+    public Secretaire(String CIN, String nom, String prenom, LocalDate date_naissance, String adresse, String telephone, String email, String sexe, int id_sec) {
         super(CIN, nom, prenom, date_naissance, adresse, telephone, email, sexe);
         this.id_sec = id_sec;
     }
