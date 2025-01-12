@@ -1,15 +1,14 @@
 package org.example.MODELS;
 
 
-import jdk.vm.ci.meta.Local;
 
 import java.time.LocalDate;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 public class Rendezvous {
     
     private int id_rdv;
-    private LocalDate date;
+    private LocalDateTime date ;
 
     private int id_patient;
     private int id_medecin;
@@ -17,23 +16,23 @@ public class Rendezvous {
     private Patient patient;
     private Medecin medecin;
 
-    public Rendezvous(LocalDate date, Patient patient, Medecin medecin) {
+    public Rendezvous(LocalDateTime date, Patient patient, Medecin medecin) {
         this.date = date;
         this.patient = patient;
         this.medecin = medecin;
     }
-    public Rendezvous(int id_rdv, LocalDate date, int id_patient, int id_medecin) {
+    public Rendezvous(int id_rdv, LocalDateTime date, int id_patient, int id_medecin) {
         this.id_rdv = id_rdv;
         this.date = date;
         this.id_patient = id_patient;
         this.id_medecin = id_medecin;
     }
-    public Rendezvous(LocalDate date, int id_patient, int id_medecin) {
+    public Rendezvous(LocalDateTime date, int id_patient, int id_medecin) {
         this.date = date;
         this.id_patient = id_patient;
         this.id_medecin = id_medecin;
     }
-    public Rendezvous(int id_rdv, LocalDate date, Patient patient, Medecin medecin) {
+    public Rendezvous(int id_rdv, LocalDateTime date, Patient patient, Medecin medecin) {
         this.id_rdv = id_rdv;
         this.date = date;
         this.patient = patient;
@@ -46,10 +45,10 @@ public class Rendezvous {
     public void setId_rdv(int id_rdv) {
         this.id_rdv = id_rdv;
     }
-    public LocalDate getDate() {
+    public LocalDateTime getDate() {
         return date;
     }
-    public void setDate(LocalDate date) {
+    public void setDate(LocalDateTime date) {
         this.date = date;
     }
     public Patient getPatient() {

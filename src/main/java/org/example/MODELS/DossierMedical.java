@@ -1,20 +1,23 @@
 package org.example.MODELS;
 
 
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class DossierMedical {
     
     private int id_dossier;
     private Patient id_patient;
-    // private ArrayList<Consultation> consultations;
-    // private ArrayList<InterventionMedicale> interventions;
-    // private ArrayList<Facture> factures;
-    private Date date_creation;
+    private List<Visite> visites;
+    private LocalDateTime date_creation;
     private String notes;
     private ArrayList<String> medications;
+    private ArrayList<String> allergies;
+    private LocalDate created_at = LocalDate.now();
+
+
     
     // Getters and Setters
     public int getId_dossier() {
@@ -33,12 +36,11 @@ public class DossierMedical {
         this.id_patient = id_patient;
     }
 
-  
-    public Date getDate_creation() {
+    public LocalDateTime getDate_creation() {
         return date_creation;
     }
 
-    public void setDate_creation(Date date_creation) {
+    public void setDate_creation(LocalDateTime date_creation) {
         this.date_creation = date_creation;
     }
 
@@ -53,5 +55,7 @@ public class DossierMedical {
     public List<String> getMedications() {
         return medications;
     }
+
+
 
 }

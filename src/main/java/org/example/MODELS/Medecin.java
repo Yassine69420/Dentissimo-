@@ -17,10 +17,6 @@ public class Medecin extends User {
         Medecin_id = medecin_id;
         this.password = password;
     }
-
-
-
-
     // Getters and Setters
     public String getPassword() {
         return password;

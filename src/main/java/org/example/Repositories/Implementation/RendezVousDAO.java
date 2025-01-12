@@ -6,6 +6,7 @@ import org.example.Repositories.Interfaces.IRendezvousDAO;
 
 import java.io.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
@@ -132,17 +133,16 @@ public class RendezVousDAO implements IRendezvousDAO {
 
             return new Rendezvous(
                     Integer.parseInt(data[0]),
-                    LocalDate.parse(data[1],dtf ),
+                    LocalDateTime.parse(data[1],dtf ),
                     Integer.parseInt(data[2]),
                     Integer.parseInt(data[3])
             );
-
         } catch (Exception e) {
             throw new DAOException("Failed to parse rendezvous data: " + line, e);
         }
     }
     public static String formatData(Rendezvous rendezvous) {
-        // Format data to ensure consistency
+
         return rendezvous.getId_rdv() +
                 "=" + dtf.format(rendezvous.getDate()) +
                 "=" + rendezvous.getId_patient() +

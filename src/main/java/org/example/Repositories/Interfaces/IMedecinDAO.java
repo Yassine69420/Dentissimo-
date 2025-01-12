@@ -15,5 +15,4 @@ public interface IMedecinDAO extends IAUTH<Medecin> {
 
     Medecin getByEmailandPass(String email, String password) throws AuthException;
 
-
 }

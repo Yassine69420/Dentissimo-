@@ -8,6 +8,7 @@ import org.example.Repositories.Interfaces.IPatientDAO;
 import org.example.Services.Interfaces.IPatientService;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class PatientService implements IPatientService {
     private final IPatientDAO patientDAO;
@@ -31,17 +32,26 @@ public class PatientService implements IPatientService {
     public Patient getById(int id) throws DAOException {
         return patientDAO.getById(id);
     }
+
     @Override
     public List<Patient> searchPatientsByName(String name) throws DAOException {
-        return patientDAO.getAllPatientsbyname(name);
+        return patientDAO.getAll().stream()
+                .filter(patient -> patient.getNom().equalsIgnoreCase(name))
+                .collect(Collectors.toList());
     }
+
     @Override
     public List<Patient> searchPatientsByAge(int age) throws DAOException {
-        return patientDAO.getAllPatientsbyage(age);
+        return patientDAO.getAll().stream()
+                .filter(patient -> patient.getAge() == age)
+                .collect(Collectors.toList());
     }
+
     @Override
     public List<Patient> searchPatientsBySexe(String sexe) throws DAOException {
-        return patientDAO.getAllPatientsbysexe(sexe);
+        return patientDAO.getAll().stream()
+                .filter(patient -> patient.getSexe().equalsIgnoreCase(sexe))
+                .collect(Collectors.toList());
     }
     @Override
     public void update(Patient patient) throws DAOException {

@@ -8,7 +8,7 @@ import org.example.Repositories.Interfaces.IMedecinDAO;
 
 import java.io.*;
 
-import java.text.SimpleDateFormat;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -17,7 +17,7 @@ import java.util.List;
 public class MedecinDAO implements IMedecinDAO {
 
     DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-    private static final String PATH = "src/main/resources/Medecin.csv";
+    private static final String PATH = "src/main/resources/Medecins.csv";
     @Override
     public List<Medecin> getAll() throws DAOException {
         List<Medecin> medecins = new ArrayList<>();

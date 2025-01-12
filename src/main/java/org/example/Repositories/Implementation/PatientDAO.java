@@ -5,16 +5,17 @@ import org.example.Exceptions.DAOException;
 import org.example.Repositories.Interfaces.IPatientDAO;
 
 import java.io.*;
-import java.text.SimpleDateFormat;
+
 import java.time.LocalDate;
-import java.time.ZoneId;
+
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class PatientDAO implements IPatientDAO {
-    private static final String PATH = "src/main/resources/Patient.csv";
+    private static final String PATH = "src/main/resources/Patients.csv";
     DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy");
     @Override
     public void add(Patient patient) throws DAOException {
@@ -46,28 +47,6 @@ public class PatientDAO implements IPatientDAO {
 
     }
     @Override
-    public List<Patient> getAllPatientsbyname(String search) throws DAOException {
-        return getAll().stream()
-                .filter(patient -> patient.getNom().equalsIgnoreCase(search))
-                .collect(Collectors.toList());
-    }
-
-    @Override
-    public List<Patient> getAllPatientsbyage(int age) throws DAOException {
-        return getAll().stream()
-                .filter(patient -> patient.getAge() == age)
-                .collect(Collectors.toList());
-    }
-
-    @Override
-    public List<Patient> getAllPatientsbysexe(String sexe) throws DAOException {
-        List<Patient> patients = getAll();
-        return patients.stream()
-                .filter(patient -> patient.getSexe().equalsIgnoreCase(sexe))
-                .collect(Collectors.toList());
-    }
-
-    @Override
     public void update(Patient patient) throws DAOException {
         File inputFile = new File(PATH);
         File tempFileObj = new File("src/main/resources/temp_Patient.csv");
@@ -78,7 +57,7 @@ public class PatientDAO implements IPatientDAO {
              BufferedWriter writer = new BufferedWriter(new FileWriter(tempFileObj))) {
 
             while ((line = reader.readLine()) != null) {
-                String[] data = line.split(",");
+                String[] data = line.split("=");
                 if (Integer.parseInt(data[0]) == patient.getPatient_id()) {
                     writer.write(formatPatientData(patient));
                     writer.newLine();
@@ -104,7 +83,6 @@ public class PatientDAO implements IPatientDAO {
             throw new DAOException("Failed to rename the temporary file to the original file name.");
         }
     }
-
     @Override
     public void delete(int patient_id) throws DAOException {
         String tempFile = "src/main/resources/temp_Patient.csv";
@@ -144,7 +122,6 @@ public class PatientDAO implements IPatientDAO {
             throw new DAOException("Failed to rename the temporary file to the original file name.");
         }
     }
-
     @Override
     public  Patient getById(int patient_id) throws DAOException {
         List<Patient> patients = getAll();
@@ -158,10 +135,6 @@ public class PatientDAO implements IPatientDAO {
 
    //-------------------------------------Helper methods-------------------------------------------------
    private String formatPatientData(Patient patient) {
-
-       // Use `DateTimeFormatter` to format LocalDate
-       DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-
        return String.format("%d=%s=%s=%s=%s=%s=%s=%s=%s=%d=%.2f=%s",
                patient.getPatient_id(),                   // Patient ID
                patient.getCIN(),                          // CIN
@@ -181,9 +154,6 @@ public class PatientDAO implements IPatientDAO {
         try {
             String[] data = line.split("=");
 
-            // Use `DateTimeFormatter` to parse LocalDate
-            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-
             return new Patient(
                     Integer.parseInt(data[0]),        // Patient ID
                     data[1],                         // CIN
@@ -196,7 +166,7 @@ public class PatientDAO implements IPatientDAO {
                     data[8],                         // Sexe
                     Integer.parseInt(data[9]),       // Age
                     Float.parseFloat(data[10]),      // Facture total
-                    LocalDate.parse(data[11], dtf)   // Date d'ajout
+                    LocalDateTime.parse(data[11], dtf)   // Date d'ajout
             );
         } catch (Exception e) {
             throw new DAOException("Failed to parse patient data: " + line, e);
@@ -214,7 +184,6 @@ public class PatientDAO implements IPatientDAO {
                 }
             }
         } catch (FileNotFoundException e) {
-            // File not found, this means no patients exist yet
             return 1;
         } catch (IOException e) {
             throw new DAOException("Failed to generate patient ID", e);

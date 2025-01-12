@@ -1,9 +1,11 @@
 package org.example;
 
+import org.example.MODELS.Acte;
 import org.example.MODELS.Medecin;
 import org.example.MODELS.Patient;
 import org.example.MODELS.Rendezvous;
 import org.example.Exceptions.DAOException;
+import org.example.Repositories.Implementation.ActeDAO;
 import org.example.Repositories.Implementation.MedecinDAO;
 import org.example.Repositories.Implementation.PatientDAO;
 import org.example.Repositories.Implementation.RendezVousDAO;
@@ -12,12 +14,65 @@ import org.example.Services.Implementation.PatientService;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        PatientService Pservice = new PatientService(new PatientDAO());
+        ActeDAO acteDAO = new ActeDAO();
+
+        try {
+            // Add new Actes
+            Acte acte1 = new Acte("Consultation", "General consultation", 150.0f);
+            Acte acte2 = new Acte("Radiology", "X-ray imaging", 500.0f);
+            Acte acte3 = new Acte("Surgery", "Minor surgery operation", 2500.0f);
+
+//            acteDAO.add(acte1);
+//            acteDAO.add(acte2);
+//            acteDAO.add(acte3);
+//
+//            System.out.println("Actes added successfully!");
+
+//            // Retrieve all Actes
+            List<Acte> actes = acteDAO.getAll();
+            System.out.println("\nAll Actes:");
+            actes.forEach(System.out::println);
+////
+//            // Retrieve an Acte by ID
+//            int searchId = 2;
+//            Acte acteById = acteDAO.getById(searchId);
+//            System.out.println("\nActe retrieved by ID (" + searchId + "): " + acteById);
+//
+//            // Update an Acte
+//            Acte updatedActe = new Acte(1, "Radiology", "MRI Scan", 1200.0f);
+//            acteDAO.update(updatedActe);
+//            System.out.println("\nActe updated successfully!");
+//
+//            // Retrieve updated Actes
+//            System.out.println("\nAll Actes after update:");
+//            actes = acteDAO.getAll();
+//            actes.forEach(System.out::println);
+//
+//            // Delete an Acte by ID
+//            int deleteId = 1;
+//            acteDAO.delete(deleteId);
+//            System.out.println("\nActe with ID " + deleteId + " deleted successfully!");
+//
+//            // Retrieve all Actes after deletion
+//            System.out.println("\nAll Actes after deletion:");
+//            actes = acteDAO.getAll();
+//            actes.forEach(System.out::println);
+
+        } catch (DAOException e) {
+            System.err.println("An error occurred: " + e.getMessage());
+
+        }
+
+    }
+
+}
         //dd-MM-yyyy HH:mm
 //        SimpleDateFormat sdfH = new SimpleDateFormat("dd-MM-yyyy HH:mm");
 //        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
@@ -49,10 +104,10 @@ public class Main {
 //Pservice.add(patient1);
 
 
-        MedecinDAO mado = new MedecinDAO();
-        System.out.println(mado.getByEmailandPass("yassine@gmail.com", "Password").toString());
-    }
-}
+//        MedecinDAO mado = new MedecinDAO();
+//        System.out.println(mado.getByEmailandPass("yassine@gmail.com", "Password").toString());
+//    }
+//}
 //            System.out.println(patientDAO.getById(1).getNom());
 //            patientDAO.delete(1);
 //            patientDAO.add(patient1);
