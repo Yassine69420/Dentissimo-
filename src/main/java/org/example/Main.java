@@ -1,5 +1,6 @@
 package org.example;
 
+import org.example.Controllers.PatientController;
 import org.example.MODELS.Acte;
 import org.example.MODELS.Medecin;
 import org.example.MODELS.Patient;
@@ -19,55 +20,35 @@ import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
 
+import static org.example.MODELS.enums.Assurence.CNSS;
+
+
 public class Main {
     public static void main(String[] args) {
-        ActeDAO acteDAO = new ActeDAO();
+        PatientController ahmed = new PatientController(new PatientService(new PatientDAO()));
+        try{
 
-        try {
-            // Add new Actes
-            Acte acte1 = new Acte("Consultation", "General consultation", 150.0f);
-            Acte acte2 = new Acte("Radiology", "X-ray imaging", 500.0f);
-            Acte acte3 = new Acte("Surgery", "Minor surgery operation", 2500.0f);
+            Patient patient = new Patient(
+                    1,
+                    "C239823",
+                    "Achraf",
+                    "Hakimi",
+                    LocalDate.of(2003, 2, 2),
+                    "Rabat sale",
+                    "0823823",
+                    "2132@gmail.com",
+                    "Homme",
+                    22,
+                    CNSS,
+                    "Maladies Chroniques",
+                    0.0,
+                    LocalDateTime.of(2025, 1, 16, 10, 0)
+            );
+//            System.out.println(patient);
 
-//            acteDAO.add(acte1);
-//            acteDAO.add(acte2);
-//            acteDAO.add(acte3);
-//
-//            System.out.println("Actes added successfully!");
-
-//            // Retrieve all Actes
-            List<Acte> actes = acteDAO.getAll();
-            System.out.println("\nAll Actes:");
-            actes.forEach(System.out::println);
-////
-//            // Retrieve an Acte by ID
-//            int searchId = 2;
-//            Acte acteById = acteDAO.getById(searchId);
-//            System.out.println("\nActe retrieved by ID (" + searchId + "): " + acteById);
-//
-//            // Update an Acte
-//            Acte updatedActe = new Acte(1, "Radiology", "MRI Scan", 1200.0f);
-//            acteDAO.update(updatedActe);
-//            System.out.println("\nActe updated successfully!");
-//
-//            // Retrieve updated Actes
-//            System.out.println("\nAll Actes after update:");
-//            actes = acteDAO.getAll();
-//            actes.forEach(System.out::println);
-//
-//            // Delete an Acte by ID
-//            int deleteId = 1;
-//            acteDAO.delete(deleteId);
-//            System.out.println("\nActe with ID " + deleteId + " deleted successfully!");
-//
-//            // Retrieve all Actes after deletion
-//            System.out.println("\nAll Actes after deletion:");
-//            actes = acteDAO.getAll();
-//            actes.forEach(System.out::println);
-
-        } catch (DAOException e) {
-            System.err.println("An error occurred: " + e.getMessage());
-
+           ahmed.addPatient(patient);
+        }catch (Exception e){
+            System.out.println(e);
         }
 
     }
