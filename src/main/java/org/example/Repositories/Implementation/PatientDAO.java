@@ -19,6 +19,7 @@ public class PatientDAO implements IPatientDAO {
     public void add(Patient patient) throws DAOException {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(PATH, true))) {
             patient.setFacture_total(0.00);
+            patient.setPatient_id(generateId());
             writer.write(toCSV(patient));
             writer.newLine();
         } catch (IOException e) {

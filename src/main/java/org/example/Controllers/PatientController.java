@@ -7,8 +7,6 @@ import org.example.Services.Interfaces.IPatientService;
 
 import java.util.List;
 
-import static org.example.Repositories.Implementation.RendezVousDAO.generateId;
-
 public class PatientController {
     private final IPatientService patientService;
 
@@ -18,7 +16,7 @@ public class PatientController {
     // Add a new patient
     public void addPatient(Patient patient) throws ControllerException {
         try {
-            patient.setPatient_id(generateId());
+
             patientService.add(patient);
             System.out.println("Patient added successfully.");
         } catch (DAOException e) {
@@ -95,18 +93,7 @@ public class PatientController {
         }
     }
 
-    public  Object[] toTableRow(Patient patient) {
-        String fullName = patient.getNom() + " " + patient.getPrenom(); // Combine nom and prenom
-        return new Object[]{
-                fullName,          // Full name
-                patient.getAge(),               // Age
-                patient.getSexe(),              // Gender
-                patient.getEmail(),             // Email
-                patient.getAdresse(),           // Address
-                patient.getDate_ajout(),        // Date added
-                "Dossier / Edit / Suppr" // Action buttons or options
-        };
-    }
+
 
 
 }

@@ -25,21 +25,22 @@ public class Design extends JFrame {
     public Design() {
         setTitle("Swing Example");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(900, 750);
+        setSize(1000, 1000);
+        setLocationRelativeTo(null);
 
         panel = new JPanel();
         panel.setLayout(new BorderLayout());
 
-        // Create the menu bar
-        menuBar = new JMenuBar();
-        menuBar.setBackground(new Color(100, 100, 100)); // Use a valid RGB color
-        menuBar.setBorder(BorderFactory.createEmptyBorder(30, 0, 20, 0));
-        setJMenuBar(menuBar);
+
+//        menuBar = new JMenuBar();
+//        menuBar.setBackground(new Color(80, 216, 144)); // Use a valid RGB color
+//        menuBar.setBorder(BorderFactory.createEmptyBorder(30, 0, 20, 0));
+//        setJMenuBar(menuBar);
 
         // Create the sidebar
         JPanel sidebar = new JPanel();
         sidebar.setLayout(new BoxLayout(sidebar, BoxLayout.Y_AXIS));
-        sidebar.setBackground(new Color(79, 153, 202));
+        sidebar.setBackground(new Color(79, 152, 202));
 
         // Initialize buttons
         button1 = new JButton("Profile", FontIcon.of(FontAwesomeSolid.USER, 22, Color.black));
@@ -82,24 +83,24 @@ public class Design extends JFrame {
         setLocationRelativeTo(null);
 
         // Add a component listener to adjust the layout on resize
-        addComponentListener(new ComponentAdapter() {
-            @Override
-            public void componentResized(ComponentEvent e) {
-                adjustMenuBarHeight();
-                adjustSidebarWidth(sidebar);
-            }
-        });
+//        addComponentListener(new ComponentAdapter() {
+//            @Override
+//            public void componentResized(ComponentEvent e) {
+//                adjustMenuBarHeight();
+//                adjustSidebarWidth(sidebar);
+//            }
+//        });
     }
 
     protected JPanel getMainPanel() {
         return panel;
     }
 
-    private void adjustMenuBarHeight() {
-        int newHeight = getHeight() / 20; // Example: 5% of the frame height
-        menuBar.setBorder(BorderFactory.createEmptyBorder(newHeight, 0, 10, 0));
-        menuBar.revalidate();
-    }
+//    private void adjustMenuBarHeight() {
+//        int newHeight = getHeight() / 20; // Example: 5% of the frame height
+//        menuBar.setBorder(BorderFactory.createEmptyBorder(newHeight, 0, 10, 0));
+//        menuBar.revalidate();
+//    }
 
     private void adjustSidebarWidth(JPanel sidebar) {
         int newWidth = getWidth() / 7; // Example: Sidebar takes 1/6th of the frame width

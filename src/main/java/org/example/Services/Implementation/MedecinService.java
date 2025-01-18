@@ -19,14 +19,14 @@ public class MedecinService {
        return medecinDAO.getAll();
     }
 
-    Medecin getById(int id) throws DAOException{
+    public Medecin getById(int id) throws DAOException{
         return medecinDAO.getById(id);};
 
-    void update(Medecin medecin) throws DAOException{
+    public void update(Medecin medecin) throws DAOException{
         medecinDAO.update(medecin);
     };
 
-    Medecin getByEmailandPass(String email, String password) throws AuthException {
+    public Medecin getByEmailandPass(String email, String password) throws AuthException {
         return medecinDAO.getByEmailandPass(email,password);
     };
 
